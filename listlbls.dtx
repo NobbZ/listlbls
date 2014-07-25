@@ -6,7 +6,7 @@
 ----------------------------------------------------------------
 listlbls --- Creates a list of all labels used throughout a document
 Author:  Norbert Melzer
-E-mail:  timmelzer+listlbls@gmail.com
+E-mail:  timmelzer@gmail.com
 License: Released under the LaTeX Project Public License v1.3c or later
 See:     http://www.latex-project.org/lppl.txt
 ----------------------------------------------------------------
@@ -28,7 +28,7 @@ Some text about the package: probably the same as the abstract.
 ----------------------------------------------------------------
 listlbls --- Creates a list of all labels used throughout a document
 Author:  Norbert Melzer
-E-mail:  timmelzer+listlbls@gmail.com
+E-mail:  timmelzer@gmail.com
 License: Released under the LaTeX Project Public License v1.3c or later
 See:     http://www.latex-project.org/lppl.txt
 ----------------------------------------------------------------
@@ -36,7 +36,7 @@ See:     http://www.latex-project.org/lppl.txt
 \endpreamble
 \postamble
 
-Copyright (C) 2014 by Norbert Melzer <timmelzer+listlbls@gmail.com>
+Copyright (C) 2014 by Norbert Melzer <timmelzer@gmail.com>
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License (LPPL), either
@@ -113,12 +113,14 @@ Running "make install" installs the files in the local TeX tree.
 %\title{\textsf{listlbls} --- Creates a list of all labels used throughout a document\thanks{This file 
 %   describes version \fileversion, last revised \filedate.}
 %}
-%\author{Norbert Melzer\thanks{E-mail: \href{mailto:timmelzer+listlbls@gmail.com}{timmelzer+listlbls@gmail.com}}}
+%\author{Norbert Melzer\thanks{E-mail: \href{mailto:timmelzer@gmail.com}{timmelzer@gmail.com}}}
 %\date{Released \filedate}
 %
 %\maketitle
 %
 %\changes{v1.00}{2014/07/25}{First public release}
+%\changes{v1.01}{2014/07/25}{Changed maintainer email}
+%\changes{v1.01}{2014/07/25}{Changed some internal stuff to make it releaseable on CTAN}
 %
 % \begin{abstract}
 % This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
@@ -142,6 +144,8 @@ Running "make install" installs the files in the local TeX tree.
 %     \item[system:] |make install| (will ask for root!)
 %     \end{description}
 % \end{enumerate}
+%
+% Alternatively you might find the package at CTAN and download it. Instead of |git clone| you had to download the package, unzip it, change into that folder and then continue with compilation (step 4 above).
 %
 % \section{Usage}\label{sec:usage}
 %
