@@ -1,0 +1,216 @@
+% \iffalse meta-comment
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+listlbls --- Creates a list of all labels used throughout a document
+Author:  Norbert Melzer
+E-mail:  timmelzer+listlbls@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+Some text about the package: probably the same as the abstract.
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+listlbls --- Creates a list of all labels used throughout a document
+Author:  Norbert Melzer
+E-mail:  timmelzer+listlbls@gmail.com
+License: Released under the LaTeX Project Public License v1.3c or later
+See:     http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2014 by Norbert Melzer <timmelzer+listlbls@gmail.com>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Norbert Melzer.
+
+This work consists of the file listlbls.dtx and a Makefile.
+Running "make" generates the derived files README, listlbls.pdf and listlbls.sty.
+Running "make inst" installs the files in the user's TeX tree.
+Running "make install" installs the files in the local TeX tree.
+
+\endpostamble
+
+\usedir{tex/latex/listlbls}
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/listlbls}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/listlbls}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{listlbls.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{listlbls}
+%<*package>
+    [2014/07/24 v1.00 Creates a list of all labels used throughout a document]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
+\usepackage{colordoc}
+\usepackage{dox}
+\usepackage[numbered]{hypdoc}
+\usepackage{xspace}
+\usepackage{\jobname}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\newcommand\TSE{\href{http://tex.stackexchange.com/}{\TeX-Stackexchange}\xspace}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{\jobname.dtx}
+% \DoNotIndex{\newcommand,\newenvironment,\def,\detokenize,\dotfill,\else,\endinput,\expandafter,\fi,\ifeof,\ifx,\immediate,\jobname,\par,\pageref,\openin,\noindent,\newtoks,\newread,\newlabel,\loop,\long,\read,\ref,\relax,\repeat,\texttt,\the,\tmp,\zz}
+%
+%\title{\textsf{listlbls} --- Creates a list of all labels used throughout a document\thanks{This file 
+%   describes version \fileversion, last revised \filedate.}
+%}
+%\author{Norbert Melzer\thanks{E-mail: \href{mailto:timmelzer+listlbls@gmail.com}{timmelzer+listlbls@gmail.com}}}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.00}{2014/07/24}{First public release}
+%
+% \begin{abstract}
+% This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
+%
+% This package is based on an answer \textsc{David Carlisle}\ gave on \TSE in the thread \href{http://tex.stackexchange.com/questions/147695/list-of-all-labels-with-hyperlinks/147705#147705}{List of all labels with hyperlinks}.
+% \end{abstract}
+%
+% \section{Installation}\label{sec:install}
+%
+% \subsection{from CTAN}\label{ssec:ctan-install}
+%
+% \subsection{from source}\label{ssec:source-install}
+%
+% \begin{enumerate}
+%   \item Check out the sourcecode from \href{https://github.com/}{GitHub}:\\
+%     |git clone git@github.com:NobbZ/listlbls.git|
+%   \item Switch to the source-folder:\\|cd listlbls|
+%   \item Checkout the branch/tag you desire: |master| for latest release, |develop| for latest builds (might be broken) or the version number desired.\\
+%     |git checkout <branch/tag>|
+%   \item Compile the document using |make|:\\
+%     |make all|
+%   \item You can do either a user-installation or a system-wide installation:
+%     \begin{description}
+%     \item[user:] |make inst|
+%     \item[system:] |make install| (will ask for root!)
+%     \end{description}
+% \end{enumerate}
+%
+% \section{Usage}\label{sec:usage}
+%
+% \subsection{Initialization}\label{ssec:use-init}
+%
+% Just activate the package as usual: |\usepackage{listlbls}|
+%
+% Then anywhere in your document, you can use the |\listoflabels|-macro to typeset a list of labels.
+%
+% \DescribeMacro{\label}
+% Use |\label| as you are used to it!
+%
+% \DescribeMacro{\listoflabels}
+% This macro will typeset the list of labels when this module is in draft mode.
+%
+%\StopEventually{^^A
+%  \PrintChanges
+%
+%  \PrintIndex
+%
+%  \listoflabels
+%}
+%
+% \section{Implementation}
+%
+%    \begin{macrocode}
+%<*package>
+
+%    \end{macrocode}
+% \begin{macro}{\@findlabel}
+% No explanation yet.
+%    \begin{macrocode}
+\long\def\@findlabel#1#2\@findlabel{%
+  \ifx\newlabel#1\lablist\expandafter{\the\lablist\@showlabel#2}\fi}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@showlabel}
+% No explanation yet.
+%    \begin{macrocode}
+\def\@showlabel#1#2{%
+  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1} on page \pageref{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\newtoks\lablist
+\newread\zz
+\immediate\openin\zz=\jobname.aux
+\loop
+\ifeof\zz\else
+\read\zz to \tmp
+\expandafter\@findlabel\tmp\relax\@findlabel
+\repeat    
+%    \end{macrocode}
+%
+% \begin{macro}{\listoflabels}
+% Print a list of all available lables that are defined throughout the document.
+%    \begin{macrocode}
+\newcommand\listoflabels{%
+  \the\lablist}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+\endinput
+%</package>
+%    \end{macrocode}
+%\Finale
