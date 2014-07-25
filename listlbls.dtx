@@ -93,9 +93,10 @@ Running "make install" installs the files in the local TeX tree.
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage{colordoc}
 \usepackage{dox}
+\doxitem{Option}{option}{option}
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
-\usepackage{\jobname}
+\usepackage[draft]{listlbls}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -107,7 +108,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand,\newenvironment,\def,\detokenize,\dotfill,\else,\endinput,\expandafter,\fi,\ifeof,\ifx,\immediate,\jobname,\par,\pageref,\openin,\noindent,\newtoks,\newread,\newlabel,\loop,\long,\read,\ref,\relax,\repeat,\texttt,\the,\tmp,\zz}
+% \DoNotIndex{\newcommand,\newenvironment,\def,\detokenize,\dotfill,\else,\endinput,\expandafter,\fi,\ifeof,\ifx,\immediate,\jobname,\par,\pageref,\openin,\noindent,\newtoks,\newread,\newlabel,\loop,\long,\read,\ref,\relax,\repeat,\texttt,\the,\tmp,\zz,\ProcessOptions,\let,\ifdefined,\DeclareOption}
 %
 %\title{\textsf{listlbls} --- Creates a list of all labels used throughout a document\thanks{This file 
 %   describes version \fileversion, last revised \filedate.}
@@ -126,10 +127,6 @@ Running "make install" installs the files in the local TeX tree.
 % \end{abstract}
 %
 % \section{Installation}\label{sec:install}
-%
-% \subsection{from CTAN}\label{ssec:ctan-install}
-%
-% \subsection{from source}\label{ssec:source-install}
 %
 % \begin{enumerate}
 %   \item Check out the sourcecode from \href{https://github.com/}{GitHub}:\\
@@ -150,21 +147,24 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \subsection{Initialization}\label{ssec:use-init}
 %
-% Just activate the package as usual: |\usepackage{listlbls}|
+% Just activate the package as usual: |\usepackage|\oarg{options}|{listlbls}|
 %
-% Then anywhere in your document, you can use the |\listoflabels|-macro to typeset a list of labels.
+% \DescribeOption{draft} If |draft| is given as option, |\listoflabels| will typeset the list of labels.
 %
-% \DescribeMacro{\label}
-% Use |\label| as you are used to it!
+% \DescribeOption{final} If |final| is given as option, |\listoflabels| will do nothing.
 %
-% \DescribeMacro{\listoflabels}
-% This macro will typeset the list of labels when this module is in draft mode.
+% Then anywhere in your document, you can use the |\listoflabels|-macro to typeset a list of labels. An example can be seen on page \pageref{sec:lolabels}.
+%
+% \DescribeMacro{\label} Use |\label| as you are used to it!
+%
+% \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode.
 %
 %\StopEventually{^^A
 %  \PrintChanges
 %
 %  \PrintIndex
 %
+%  \section{List of Labels}\label{sec:lolabels}
 %  \listoflabels
 %}
 %
@@ -172,7 +172,24 @@ Running "make install" installs the files in the local TeX tree.
 %
 %    \begin{macrocode}
 %<*package>
-
+%    \end{macrocode}
+% \begin{option}{draft}
+% \changes{1.01}{2014/07/25}{Added option}
+% Check for |draft|-option:
+%    \begin{macrocode}
+\DeclareOption{draft}{\newcommand\@draftmode{true}}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{final}
+% \changes{1.01}{2014/07/25}{Added option}
+% Check for |final|-option:
+%    \begin{macrocode}
+\DeclareOption{final}{\let\@draftmode=\@undefined}
+%    \end{macrocode}
+% \end{option}
+% Process the options:
+%    \begin{macrocode}
+\ProcessOptions\relax
 %    \end{macrocode}
 % \begin{macro}{\@findlabel}
 % No explanation yet.
@@ -200,16 +217,20 @@ Running "make install" installs the files in the local TeX tree.
 \expandafter\@findlabel\tmp\relax\@findlabel
 \repeat    
 %    \end{macrocode}
-%
+%    \begin{macrocode}
+\ifdefined\@draftmode
+%    \end{macrocode}
 % \begin{macro}{\listoflabels}
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}
-\newcommand\listoflabels{%
-  \the\lablist}
+  \newcommand\listoflabels{%
+    \the\lablist}
 %    \end{macrocode}
 % \end{macro}
-%
 %    \begin{macrocode}
+\else
+  \let\listoflabels=\relax
+\fi
 \endinput
 %</package>
 %    \end{macrocode}
