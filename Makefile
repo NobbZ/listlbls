@@ -6,6 +6,7 @@ TDIR  = $(TEMP)/$(NAME)
 VERS  = $(shell ltxfileinfo -v $(NAME).dtx)
 LOCAL = $(shell kpsewhich --var-value TEXMFLOCAL)
 UTREE = $(shell kpsewhich --var-value TEXMFHOME)
+
 all:	$(NAME).pdf clean
 	test -e README.txt && mv README.txt README || exit 0
 $(NAME).pdf: $(NAME).dtx
@@ -30,5 +31,5 @@ install: all
 	sudo cp $(NAME).pdf $(LOCAL)/doc/latex/$(NAME)
 zip: all
 	mkdir $(TDIR)
-	cp $(NAME).{pdf,sty,dtx} README $(TDIR)
+	cp $(NAME).{pdf,dtx} Makefile README $(TDIR)
 	cd $(TEMP); zip -Drq $(PWD)/$(NAME)-$(VERS).zip $(NAME)
