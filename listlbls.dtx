@@ -122,6 +122,7 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.00}{2014/07/25}{First public release}
 %\changes{v1.01}{2014/07/25}{Changed maintainer email}
 %\changes{v1.01}{2014/07/25}{Changed some internal stuff to make it releaseable on CTAN}
+%\changes{v1.02}{2014/07/26}{Local option wins agains global option}
 %
 % \begin{abstract}
 % This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
@@ -159,7 +160,11 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeOption{draft} If |draft| is given as option, |\listoflabels| will typeset the list of labels.
 %
-% \DescribeOption{final} If |final| is given as option, |\listoflabels| will do nothing.
+% \DescribeOption{final} If |final| is given as option, |\listoflabels| will do nothing. Please remember, that |final| is set globally by most documentclasses.
+%
+% A locally set option will win against a globally set contrary option!
+%
+% \subsection{Macros}
 %
 % Then anywhere in your document, you can use the |\listoflabels|-macro to typeset a list of labels. An example can be seen on page \pageref{sec:lolabels}.
 %
@@ -176,29 +181,34 @@ Running "make install" installs the files in the local TeX tree.
 %  \listoflabels
 %}
 %
-% \section{Implementation}
+% \section{Implementation}\label{sec:implementation}
 %
 %    \begin{macrocode}
 %<*package>
+\newif\if@draft\@draftfalse
 %    \end{macrocode}
+% \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
-% \changes{1.01}{2014/07/25}{Added option}
+% \changes{v1.01}{2014/07/25}{Added option}
+% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
 % Check for |draft|-option:
 %    \begin{macrocode}
-\DeclareOption{draft}{\newcommand\@draftmode{true}}
+\DeclareOption{draft}{\@drafttrue}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{final}
-% \changes{1.01}{2014/07/25}{Added option}
+% \changes{v1.01}{2014/07/25}{Added option}
+% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
 % Check for |final|-option:
 %    \begin{macrocode}
-\DeclareOption{final}{\let\@draftmode=\@undefined}
+\DeclareOption{final}{\@draftfalse}
 %    \end{macrocode}
 % \end{option}
 % Process the options:
 %    \begin{macrocode}
-\ProcessOptions\relax
+\ProcessOptions*\relax
 %    \end{macrocode}
+% \subsection{Internal stuff}\label{ssec:impl-internal}
 % \begin{macro}{\@findlabel}
 % No explanation yet.
 %    \begin{macrocode}
@@ -225,8 +235,9 @@ Running "make install" installs the files in the local TeX tree.
 \expandafter\@findlabel\tmp\relax\@findlabel
 \repeat    
 %    \end{macrocode}
+% \subsection{External stuff}\label{ssec:impl-extern}
 %    \begin{macrocode}
-\ifdefined\@draftmode
+\if@draft
 %    \end{macrocode}
 % \begin{macro}{\listoflabels}
 % Print a list of all available lables that are defined throughout the document.
