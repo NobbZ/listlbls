@@ -166,6 +166,8 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeOption{notoc} If this is given the List of Labels will \emph{not} appear in a table of contents, but it will still have a headline.
 %
+% \DescribeOption{numtoc} Typesets a numbered headline, this option also implies |totoc|!
+%
 % This document was typeset with |\usepackage[draft,totoc]{listlbls}|.
 %
 % A locally set option will win against a globally set contrary option!
@@ -192,6 +194,7 @@ Running "make install" installs the files in the local TeX tree.
 %<*package>
 \newif\if@draft\@draftfalse
 \newif\if@totoc\@totocfalse
+\newif\if@numtoc\@numtocfalse
 %    \end{macrocode}
 % \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
@@ -224,6 +227,13 @@ Running "make install" installs the files in the local TeX tree.
 \DeclareOption{notoc}{\@totocfalse}
 %    \end{macrocode}
 % \end{option}
+% \begin{option}{numtoc}
+% \changes{v1.02}{2014/07/27}{Added option}
+% Check for |numtoc|-option:
+%    \begin{macrocode}
+\DeclareOption{numtoc}{\@numtoctrue}
+%    \end{macrocode}
+% \end{option}
 % Process the options:
 %    \begin{macrocode}
 \ProcessOptions*\relax
@@ -232,11 +242,23 @@ Running "make install" installs the files in the local TeX tree.
 % Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
 %    \begin{macrocode}
 \ifdefined\chapter*
-  \def\llbls@toccommand{\chapter*}
-  \def\llbls@tocgroup{chapter}
+  \if@numtoc
+    \def\llbls@headline{\chapter{List of Labels}\label{special:listoflabels}}
+  \else
+    \def\llbls@toccommand{\chapter*}
+    \def\llbls@tocgroup{chapter}
+  \fi
 \else
-  \def\llbls@toccommand{\section*}
-  \def\llbls@tocgroup{section}
+  \if@numtoc
+    \def\llbls@headline{\section{List of Labels}\label{special:listoflabels}}
+  \else
+    \def\llbls@toccommand{\section*}
+    \def\llbls@tocgroup{section}
+  \fi
+\fi
+\ifdefined\llbls@headline\else
+  \def\llbls@headline{\llbls@toccommand{List of Labels}\label{special:listoflabels}%
+    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{List of Labels}\relax\fi}
 \fi
 %    \end{macrocode}
 % \begin{macro}{\@findlabel}
@@ -273,8 +295,7 @@ Running "make install" installs the files in the local TeX tree.
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}
   \newcommand\listoflabels{%
-    \llbls@toccommand{List of Labels}\label{special:listoflabels}%
-    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{List of Labels}\relax\fi%
+    \llbls@headline%
     \the\lablist}
 %    \end{macrocode}
 % \end{macro}
