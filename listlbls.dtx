@@ -97,7 +97,7 @@ Running "make install" installs the files in the local TeX tree.
 \doxitem{Option}{option}{option}
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
-\usepackage[draft]{listlbls}
+\usepackage[draft,totoc]{listlbls}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -162,6 +162,12 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeOption{final} If |final| is given as option, |\listoflabels| will do nothing. Please remember, that |final| is set globally by most documentclasses.
 %
+% \DescribeOption{totoc} If this is given the List of Labels will appear in a table of contents (unnumbered).
+%
+% \DescribeOption{notoc} If this is given the List of Labels will \emph{not} appear in a table of contents, but it will still have a headline.
+%
+% This document was typeset with |\usepackage[draft,totoc]{listlbls}|.
+%
 % A locally set option will win against a globally set contrary option!
 %
 % \subsection{Macros}
@@ -170,14 +176,13 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeMacro{\label} Use |\label| as you are used to it!
 %
-% \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode.
+% \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode. It will itself register the label ``|special:listoflabels|''.
 %
 %\StopEventually{^^A
 %  \PrintChanges
 %
 %  \PrintIndex
 %
-%  \section{List of Labels}\label{sec:lolabels}
 %  \listoflabels
 %}
 %
@@ -186,6 +191,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 %<*package>
 \newif\if@draft\@draftfalse
+\newif\if@totoc\@totocfalse
 %    \end{macrocode}
 % \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
@@ -204,11 +210,33 @@ Running "make install" installs the files in the local TeX tree.
 \DeclareOption{final}{\@draftfalse}
 %    \end{macrocode}
 % \end{option}
+% \begin{option}{totoc}
+% Check for |totoc|-option:
+%    \begin{macrocode}
+\DeclareOption{totoc}{\@totoctrue}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{notoc}
+% Check for |notoc|-option:
+%    \begin{macrocode}
+\DeclareOption{notoc}{\@totocfalse}
+%    \end{macrocode}
+% \end{option}
 % Process the options:
 %    \begin{macrocode}
 \ProcessOptions*\relax
 %    \end{macrocode}
 % \subsection{Internal stuff}\label{ssec:impl-internal}
+% Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
+%    \begin{macrocode}
+\ifdefined\chapter*
+  \def\llbls@toccommand{\chapter*}
+  \def\llbls@tocgroup{chapter}
+\else
+  \def\llbls@toccommand{\section*}
+  \def\llbls@tocgroup{section}
+\fi
+%    \end{macrocode}
 % \begin{macro}{\@findlabel}
 % No explanation yet.
 %    \begin{macrocode}
@@ -218,7 +246,7 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\@showlabel}
-% No explanation yet.
+% Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\@showlabel#1#2{%
   \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1} on page \pageref{#1}}
@@ -243,6 +271,8 @@ Running "make install" installs the files in the local TeX tree.
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}
   \newcommand\listoflabels{%
+    \llbls@toccommand{List of Labels}\label{special:listoflabels}%
+    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{List of Labels}\relax\fi%
     \the\lablist}
 %    \end{macrocode}
 % \end{macro}
