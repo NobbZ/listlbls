@@ -300,8 +300,14 @@ Running "make install" installs the files in the local TeX tree.
   \fi
 \fi
 \ifdefined\llbls@headline\else
-  \def\llbls@headline{\llbls@toccommand{\GetTranslation{llbls-listoflabels}}\label{special:listoflabels}%
-    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}\relax\fi}
+  \def\llbls@headline{%
+    \llbls@toccommand{\GetTranslation{llbls-listoflabels}}%
+    \label{special:listoflabels}%
+    \if@totoc%
+      \addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}%
+      \relax%
+    \fi%
+  }
 \fi
 %    \end{macrocode}
 % \begin{macro}{\llbls@refs}
