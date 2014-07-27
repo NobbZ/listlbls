@@ -98,6 +98,7 @@ Running "make install" installs the files in the local TeX tree.
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
 \usepackage[draft,totoc]{listlbls}
+\usepackage[english]{babel}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -123,7 +124,7 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.01}{2014/07/25}{Changed maintainer email}
 %\changes{v1.01}{2014/07/25}{Changed some internal stuff to make it releaseable on CTAN}
 %\changes{v1.02}{2014/07/26}{Local option wins agains global option}
-%
+%\changes{v1.02}{2014/07/27}{Added languag-support for English, German and French.}
 % \begin{abstract}
 % This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
 %
@@ -238,6 +239,26 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 \ProcessOptions*\relax
 %    \end{macrocode}
+% \subsection{Loading auxilliary packages}\label{ssec:impl-aux}
+% Load the package |translations| to provide internationalised caption for the |\listoflabels|.
+%    \begin{macrocode}
+\RequirePackage{translations}
+%    \end{macrocode}
+% \subsection{Set up internationalisation}\label{ssec:impl-i18n}
+% Define fallback translations:
+%    \begin{macrocode}
+\DeclareTranslationFallback{llbls-listoflabels}{List of Labels}
+\DeclareTranslationFallback{llbls-onpage}{on page}
+%    \end{macrocode}
+% Define other translations:
+%    \begin{macrocode}
+\DeclareTranslation{English}{llbls-listoflabels}{List of Labels}
+\DeclareTranslation{English}{llbls-onpage}{on page}
+\DeclareTranslation{German}{llbls-listoflabels}{Sprungmarkenverzeichnis}
+\DeclareTranslation{German}{llbls-onpage}{auf Seite}
+\DeclareTranslation{French}{llbls-listoflabels}{Liste des \'etiquettes}
+\DeclareTranslation{French}{llbls-onpage}{\`a la page}
+%    \end{macrocode}
 % \subsection{Internal stuff}\label{ssec:impl-internal}
 % Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
 %    \begin{macrocode}
@@ -257,8 +278,8 @@ Running "make install" installs the files in the local TeX tree.
   \fi
 \fi
 \ifdefined\llbls@headline\else
-  \def\llbls@headline{\llbls@toccommand{List of Labels}\label{special:listoflabels}%
-    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{List of Labels}\relax\fi}
+  \def\llbls@headline{\llbls@toccommand{\GetTranslation{llbls-listoflabels}}\label{special:listoflabels}%
+    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}\relax\fi}
 \fi
 %    \end{macrocode}
 % \begin{macro}{\@findlabel}
@@ -273,7 +294,7 @@ Running "make install" installs the files in the local TeX tree.
 % Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\@showlabel#1#2{%
-  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1} on page \pageref{#1}}
+  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
