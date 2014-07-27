@@ -135,6 +135,10 @@ Running "make install" installs the files in the local TeX tree.
 %   \tableofcontents
 % \end{multicols}
 % \section{Installation}\label{sec:install}
+% 
+% The following explanations are only valid for Linux-like systems with gnu-|make| available.
+%
+% \subsection{From Github}
 %
 % \begin{enumerate}
 %   \item Check out the sourcecode from \href{https://github.com/}{GitHub}:\\
@@ -146,12 +150,24 @@ Running "make install" installs the files in the local TeX tree.
 %     |make all|
 %   \item You can do either a user-installation or a system-wide installation:
 %     \begin{description}
-%     \item[user:] |make inst|
-%     \item[system:] |make install| (will ask for root!)
+%       \item[user:] |make inst|
+%       \item[system:] |make install| (will ask for root!)
 %     \end{description}
 % \end{enumerate}
 %
-% Alternatively you might find the package at CTAN and download it. Instead of |git clone| you had to download the package, unzip it, change into that folder and then continue with compilation (step 4 above).
+% \subsection{From CTAN}
+%
+% \begin{enumerate}
+%   \item Browse to \url{http://ctan.org/pkg/listlbls}.
+%   \item Download the package as zip archive (``Download'' at the bottom of the page).
+%   \item Unzip wherever you want.
+%   \item |cd| into the directory you unzipped to.
+%   \item You can do either a user-installation or a system-wide installation:
+%     \begin{description}
+%       \item[user:] |make inst|
+%       \item[system:] |make install| (will ask for root!)
+%     \end{description}
+% \end{enumerate}
 %
 % \section{Usage}\label{sec:usage}
 %
