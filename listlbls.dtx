@@ -97,8 +97,9 @@ Running "make install" installs the files in the local TeX tree.
 \doxitem{Option}{option}{option}
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
-\usepackage[draft,totoc]{listlbls}
+\usepackage{nameref}
 \usepackage[english]{babel}
+\usepackage[draft,totoc]{listlbls}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -188,7 +189,9 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeOption{numtoc} Typesets a numbered headline, this option also implies |totoc|!
 %
-% This document was typeset with |\usepackage[draft,totoc]{listlbls}|.
+% \DescribeOption{nonameref} Even if the package |nameref| if detected, it will not be used (\emph{not implemented yet})
+%
+% This document was typeset with |\usepackage[draft,totoc]{listlbls}| also the package |nameref| was loaded.
 %
 % A locally set option will win against a globally set contrary option!
 %
@@ -301,6 +304,15 @@ Running "make install" installs the files in the local TeX tree.
     \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}\relax\fi}
 \fi
 %    \end{macrocode}
+% \begin{macro}{\llbls@refs}
+%    \begin{macrocode}
+\ifdefined\nameref
+  \newcommand\llbls@refs[1]{\nameref{#1}, \ref{#1}}%
+\else
+  \newcommand\llbls@refs[1]{\ref{#1}}%
+\fi
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\@findlabel}
 % No explanation yet.
 %    \begin{macrocode}
@@ -310,10 +322,11 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\@showlabel}
+% \changes{v1.03}{2014/07/27}{Add support for nameref-package}
 % Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\@showlabel#1#2{%
-  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}}
+  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\llbls@refs{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
