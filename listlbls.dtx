@@ -332,7 +332,10 @@ Running "make install" installs the files in the local TeX tree.
 % Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\@showlabel#1#2{%
-  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\llbls@refs{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}}
+  \par\noindent Label: %
+  \texttt{\detokenize{#1}}\dotfill%
+  \llbls@refs{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}%
+}
 %    \end{macrocode}
 % \end{macro}
 %
