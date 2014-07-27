@@ -86,17 +86,19 @@ Running "make install" installs the files in the local TeX tree.
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{listlbls}
 %<*package>
-    [2014/07/25 v1.01 Creates a list of all labels used throughout a document]
+    [2014/07/27 v1.02 Creates a list of all labels used throughout a document]
 %</package>
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage{colordoc}
+\usepackage{multicol}
 \usepackage{dox}
 \doxitem{Option}{option}{option}
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
-\usepackage[draft]{listlbls}
+\usepackage[draft,totoc]{listlbls}
+\usepackage[english]{babel}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
@@ -108,7 +110,7 @@ Running "make install" installs the files in the local TeX tree.
 % \fi
 %
 % \GetFileInfo{\jobname.dtx}
-% \DoNotIndex{\newcommand,\newenvironment,\def,\detokenize,\dotfill,\else,\endinput,\expandafter,\fi,\ifeof,\ifx,\immediate,\jobname,\par,\pageref,\openin,\noindent,\newtoks,\newread,\newlabel,\loop,\long,\read,\ref,\relax,\repeat,\texttt,\the,\tmp,\zz,\ProcessOptions,\let,\ifdefined,\DeclareOption}
+% \DoNotIndex{\newcommand,\newenvironment,\def,\detokenize,\dotfill,\else,\endinput,\expandafter,\fi,\ifeof,\ifx,\immediate,\jobname,\par,\pageref,\openin,\noindent,\newtoks,\newread,\newlabel,\loop,\long,\read,\ref,\relax,\repeat,\texttt,\the,\tmp,\zz,\ProcessOptions,\let,\ifdefined,\DeclareOption,\addcontentsline,\chapter,\DeclareTranslation,\DeclareTranslationFallback,\GetTranslation,\newif,\RequirePackage,\section,\`,\´,\'}
 %
 %\title{\textsf{listlbls} --- Creates a list of all labels used throughout a document\thanks{This file 
 %   describes version \fileversion, last revised \filedate.}
@@ -121,14 +123,22 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.00}{2014/07/25}{First public release}
 %\changes{v1.01}{2014/07/25}{Changed maintainer email}
 %\changes{v1.01}{2014/07/25}{Changed some internal stuff to make it releaseable on CTAN}
-%
+%\changes{v1.02}{2014/07/26}{Local option wins agains global option}
+%\changes{v1.02}{2014/07/27}{Added languag-support for English, German and French.}
 % \begin{abstract}
 % This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
 %
 % This package is based on an answer \textsc{David Carlisle}\ gave on \TSE in the thread \href{http://tex.stackexchange.com/questions/147695/list-of-all-labels-with-hyperlinks/147705#147705}{List of all labels with hyperlinks}.
 % \end{abstract}
 %
+% \begin{multicols}{2}
+%   \tableofcontents
+% \end{multicols}
 % \section{Installation}\label{sec:install}
+% 
+% The following explanations are only valid for Linux-like systems with gnu-|make| available.
+%
+% \subsection{From Github}
 %
 % \begin{enumerate}
 %   \item Check out the sourcecode from \href{https://github.com/}{GitHub}:\\
@@ -140,12 +150,27 @@ Running "make install" installs the files in the local TeX tree.
 %     |make all|
 %   \item You can do either a user-installation or a system-wide installation:
 %     \begin{description}
-%     \item[user:] |make inst|
-%     \item[system:] |make install| (will ask for root!)
+%       \item[user:] |make inst|
+%       \item[system:] |make install| (will ask for root!)
 %     \end{description}
 % \end{enumerate}
 %
-% Alternatively you might find the package at CTAN and download it. Instead of |git clone| you had to download the package, unzip it, change into that folder and then continue with compilation (step 4 above).
+% \subsection{From CTAN}
+%
+% \begin{enumerate}
+%   \item Browse to \url{http://ctan.org/pkg/listlbls}.
+%   \item Download the package as zip archive (``Download'' at the bottom of the page).\\
+%     |wget http://mirrors.ctan.org/macros/latex/contrib/listlbls.zip|
+%   \item Unzip wherever you want. \\
+%     |unzip listlbls.zip|
+%   \item |cd| into the directory you unzipped to. \\
+%     |cd listlbls|
+%   \item You can do either a user-installation or a system-wide installation:
+%     \begin{description}
+%       \item[user:] |make inst|
+%       \item[system:] |make install| (will ask for root!)
+%     \end{description}
+% \end{enumerate}
 %
 % \section{Usage}\label{sec:usage}
 %
@@ -155,45 +180,126 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeOption{draft} If |draft| is given as option, |\listoflabels| will typeset the list of labels.
 %
-% \DescribeOption{final} If |final| is given as option, |\listoflabels| will do nothing.
+% \DescribeOption{final} If |final| is given as option, |\listoflabels| will do nothing. Please remember, that |final| is set globally by most documentclasses.
+%
+% \DescribeOption{totoc} If this is given the List of Labels will appear in a table of contents (unnumbered).
+%
+% \DescribeOption{notoc} If this is given the List of Labels will \emph{not} appear in a table of contents, but it will still have a headline.
+%
+% \DescribeOption{numtoc} Typesets a numbered headline, this option also implies |totoc|!
+%
+% This document was typeset with |\usepackage[draft,totoc]{listlbls}|.
+%
+% A locally set option will win against a globally set contrary option!
+%
+% \subsection{Macros}
 %
 % Then anywhere in your document, you can use the |\listoflabels|-macro to typeset a list of labels. An example can be seen on page \pageref{sec:lolabels}.
 %
 % \DescribeMacro{\label} Use |\label| as you are used to it!
 %
-% \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode.
+% \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode. It will itself register the label ``|special:listoflabels|''.
 %
 %\StopEventually{^^A
 %  \PrintChanges
 %
 %  \PrintIndex
 %
-%  \section{List of Labels}\label{sec:lolabels}
 %  \listoflabels
 %}
 %
-% \section{Implementation}
+% \section{Implementation}\label{sec:implementation}
 %
 %    \begin{macrocode}
 %<*package>
+\newif\if@draft\@draftfalse
+\newif\if@totoc\@totocfalse
+\newif\if@numtoc\@numtocfalse
 %    \end{macrocode}
+% \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
-% \changes{1.01}{2014/07/25}{Added option}
+% \changes{v1.01}{2014/07/25}{Added option}
+% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
 % Check for |draft|-option:
 %    \begin{macrocode}
-\DeclareOption{draft}{\newcommand\@draftmode{true}}
+\DeclareOption{draft}{\@drafttrue}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{final}
-% \changes{1.01}{2014/07/25}{Added option}
+% \changes{v1.01}{2014/07/25}{Added option}
+% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
 % Check for |final|-option:
 %    \begin{macrocode}
-\DeclareOption{final}{\let\@draftmode=\@undefined}
+\DeclareOption{final}{\@draftfalse}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{totoc}
+% \changes{v1.02}{2014/07/26}{Added option}
+% Check for |totoc|-option:
+%    \begin{macrocode}
+\DeclareOption{totoc}{\@totoctrue}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{notoc}
+% \changes{v1.02}{2014/07/26}{Added option}
+% Check for |notoc|-option:
+%    \begin{macrocode}
+\DeclareOption{notoc}{\@totocfalse}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{numtoc}
+% \changes{v1.02}{2014/07/27}{Added option}
+% Check for |numtoc|-option:
+%    \begin{macrocode}
+\DeclareOption{numtoc}{\@numtoctrue}
 %    \end{macrocode}
 % \end{option}
 % Process the options:
 %    \begin{macrocode}
-\ProcessOptions\relax
+\ProcessOptions*\relax
+%    \end{macrocode}
+% \subsection{Loading auxilliary packages}\label{ssec:impl-aux}
+% Load the package |translations| to provide internationalised caption for the |\listoflabels|.
+%    \begin{macrocode}
+\RequirePackage{translations}
+%    \end{macrocode}
+% \subsection{Set up internationalisation}\label{ssec:impl-i18n}
+% Define fallback translations:
+%    \begin{macrocode}
+\DeclareTranslationFallback{llbls-listoflabels}{List of Labels}
+\DeclareTranslationFallback{llbls-onpage}{on page}
+%    \end{macrocode}
+% Define other translations:
+%    \begin{macrocode}
+\DeclareTranslation{English}{llbls-listoflabels}{List of Labels}
+\DeclareTranslation{English}{llbls-onpage}{on page}
+\DeclareTranslation{German}{llbls-listoflabels}{Sprungmarkenverzeichnis}
+\DeclareTranslation{German}{llbls-onpage}{auf Seite}
+\DeclareTranslation{French}{llbls-listoflabels}{Liste des \'etiquettes}
+\DeclareTranslation{French}{llbls-onpage}{\`a la page}
+%    \end{macrocode}
+% \subsection{Internal stuff}\label{ssec:impl-internal}
+% Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
+%    \begin{macrocode}
+\ifdefined\chapter*
+  \if@numtoc
+    \def\llbls@headline{\chapter{List of Labels}\label{special:listoflabels}}
+  \else
+    \def\llbls@toccommand{\chapter*}
+    \def\llbls@tocgroup{chapter}
+  \fi
+\else
+  \if@numtoc
+    \def\llbls@headline{\section{List of Labels}\label{special:listoflabels}}
+  \else
+    \def\llbls@toccommand{\section*}
+    \def\llbls@tocgroup{section}
+  \fi
+\fi
+\ifdefined\llbls@headline\else
+  \def\llbls@headline{\llbls@toccommand{\GetTranslation{llbls-listoflabels}}\label{special:listoflabels}%
+    \if@totoc\addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}\relax\fi}
+\fi
 %    \end{macrocode}
 % \begin{macro}{\@findlabel}
 % No explanation yet.
@@ -204,10 +310,10 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\@showlabel}
-% No explanation yet.
+% Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\@showlabel#1#2{%
-  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1} on page \pageref{#1}}
+  \par\noindent Label: \texttt{\detokenize{#1}}\dotfill\ref{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}}
 %    \end{macrocode}
 % \end{macro}
 %
@@ -221,13 +327,15 @@ Running "make install" installs the files in the local TeX tree.
 \expandafter\@findlabel\tmp\relax\@findlabel
 \repeat    
 %    \end{macrocode}
+% \subsection{External stuff}\label{ssec:impl-extern}
 %    \begin{macrocode}
-\ifdefined\@draftmode
+\if@draft
 %    \end{macrocode}
 % \begin{macro}{\listoflabels}
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}
   \newcommand\listoflabels{%
+    \llbls@headline%
     \the\lablist}
 %    \end{macrocode}
 % \end{macro}

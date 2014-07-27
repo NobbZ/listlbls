@@ -13,10 +13,10 @@ $(NAME).pdf: $(NAME).dtx
 	pdflatex -shell-escape -recorder -interaction=batchmode $(NAME).dtx >/dev/null
 	if [ -f $(NAME).glo ]; then makeindex -q -s gglo.ist -o $(NAME).gls $(NAME).glo; fi
 	if [ -f $(NAME).idx ]; then makeindex -q -s gind.ist -o $(NAME).ind $(NAME).idx; fi
-	pdflatex --recorder --interaction=nonstopmode $(NAME).dtx > /dev/null
-	pdflatex --recorder --interaction=nonstopmode $(NAME).dtx > /dev/null
+	pdflatex -shell-escape -recorder -interaction=nonstopmode $(NAME).dtx > /dev/null
+	pdflatex -shell-escape -recorder -interaction=nonstopmode $(NAME).dtx > /dev/null
 clean:
-	rm -f $(NAME).{aux,fls,glo,gls,hd,idx,ilg,ind,ins,log,out}
+	rm -f $(NAME).{aux,toc,fls,glo,gls,hd,idx,ilg,ind,ins,log,out}
 distclean: clean
 	rm -f $(NAME).{pdf,sty} README
 inst: all
