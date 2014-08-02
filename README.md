@@ -1,11 +1,14 @@
-----------------------------------------------------------------
-listlbls --- Creates a list of all labels used throughout a document
-Author:  Norbert Melzer
-E-mail:  timmelzer@gmail.com
-License: Released under the LaTeX Project Public License v1.3c or later
-See:     http://www.latex-project.org/lppl.txt
+listlbls
+========
 
-----------------------------------------------------------------
+Creates a list of all labels used throughout a document
+
+| Key     | Value                                                          |
+|--------:|:---------------------------------------------------------------|
+| Author  | Norbert Melzer                                                 |
+| E-mail  | timmelzer@gmail.com                                            |
+| License | Released under the LaTeX Project Public License v1.3c or later |
+| See     | http://www.latex-project.org/lppl.txt                          |
 
 This is a package meant to help a LaTeX-writer to keep track all the defined
 labels by typesetting a complete list of labels whereever the author requests

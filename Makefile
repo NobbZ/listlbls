@@ -12,8 +12,7 @@ all:	$(NAME).pdf README.md README clean
 README: README.txt
 	mv README.txt README
 
-README.md: README
-	cp README README.md
+README.md: $(NAME).pdf
 
 README.txt: $(NAME).pdf
 
