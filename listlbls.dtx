@@ -227,9 +227,9 @@ Running "make install" installs the files in the local TeX tree.
 %
 %    \begin{macrocode}
 %<*package>
-\newif\if@draft\@draftfalse
-\newif\if@totoc\@totocfalse
-\newif\if@numtoc\@numtocfalse
+\newif\ifllbls@draft\llbls@draftfalse
+\newif\ifllbls@totoc\llbls@totocfalse
+\newif\ifllbls@numtoc\llbls@numtocfalse
 %    \end{macrocode}
 % \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
@@ -237,7 +237,7 @@ Running "make install" installs the files in the local TeX tree.
 % \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
 % Check for |draft|-option:
 %    \begin{macrocode}
-\DeclareOption{draft}{\@drafttrue}
+\DeclareOption{draft}{\llbls@drafttrue}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{final}
@@ -245,28 +245,28 @@ Running "make install" installs the files in the local TeX tree.
 % \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
 % Check for |final|-option:
 %    \begin{macrocode}
-\DeclareOption{final}{\@draftfalse}
+\DeclareOption{final}{\llbls@draftfalse}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{totoc}
 % \changes{v1.02}{2014/07/26}{Added option}
 % Check for |totoc|-option:
 %    \begin{macrocode}
-\DeclareOption{totoc}{\@totoctrue}
+\DeclareOption{totoc}{\llbls@totoctrue}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{notoc}
 % \changes{v1.02}{2014/07/26}{Added option}
 % Check for |notoc|-option:
 %    \begin{macrocode}
-\DeclareOption{notoc}{\@totocfalse}
+\DeclareOption{notoc}{\llbls@totocfalse}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{numtoc}
 % \changes{v1.02}{2014/07/27}{Added option}
 % Check for |numtoc|-option:
 %    \begin{macrocode}
-\DeclareOption{numtoc}{\@numtoctrue}
+\DeclareOption{numtoc}{\llbls@numtoctrue}
 %    \end{macrocode}
 % \end{option}
 % Process the options:
@@ -303,14 +303,14 @@ Running "make install" installs the files in the local TeX tree.
 % Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
 %    \begin{macrocode}
 \ifdefined\chapter*
-  \if@numtoc
+  \ifllbls@numtoc
     \def\llbls@headline{\chapter{List of Labels}\label{special:listoflabels}}
   \else
     \def\llbls@toccommand{\chapter*}
     \def\llbls@tocgroup{chapter}
   \fi
 \else
-  \if@numtoc
+  \ifllbls@numtoc
     \def\llbls@headline{\section{List of Labels}\label{special:listoflabels}}
   \else
     \def\llbls@toccommand{\section*}
@@ -321,7 +321,7 @@ Running "make install" installs the files in the local TeX tree.
   \def\llbls@headline{%
     \llbls@toccommand{\GetTranslation{llbls-listoflabels}}%
     \label{special:listoflabels}%
-    \if@totoc%
+    \ifllbls@totoc%
       \addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}%
       \relax%
     \fi%
@@ -369,7 +369,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \end{macrocode}
 % \subsection{External stuff}\label{ssec:impl-extern}
 %    \begin{macrocode}
-\if@draft
+\ifllbls@draft
 %    \end{macrocode}
 % \begin{macro}{\listoflabels}
 % Print a list of all available lables that are defined throughout the document.
