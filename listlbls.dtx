@@ -363,19 +363,19 @@ Running "make install" installs the files in the local TeX tree.
 \fi
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\@findlabel}
+% \begin{macro}{\llbls@findlabel}
 % No explanation yet.
 %    \begin{macrocode}
-\long\def\@findlabel#1#2\@findlabel{%
-  \ifx\newlabel#1\lablist\expandafter{\the\lablist\@showlabel#2}\fi}
+\long\def\llbls@findlabel#1#2\llbls@findlabel{%
+  \ifx\newlabel#1\lablist\expandafter{\the\lablist\llbls@showlabel#2}\fi}
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\@showlabel}
+% \begin{macro}{\llbls@showlabel}
 % \changes{v1.03}{2014/07/27}{Add support for nameref-package}
 % Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
-\def\@showlabel#1#2{%
+\def\llbls@showlabel#1#2{%
   \par\noindent Label: %
   \texttt{\detokenize{#1}}\dotfill%
   \llbls@refs{#1}~\GetTranslation{llbls-onpage}~\pageref{#1}%
@@ -390,8 +390,8 @@ Running "make install" installs the files in the local TeX tree.
 \loop
 \ifeof\zz\else
 \read\zz to \tmp
-\expandafter\@findlabel\tmp\relax\@findlabel
-\repeat    
+\expandafter\llbls@findlabel\tmp\relax\llbls@findlabel
+\repeat
 %    \end{macrocode}
 % \subsection{External stuff}\label{ssec:impl-extern}
 %    \begin{macrocode}
