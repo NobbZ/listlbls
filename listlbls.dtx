@@ -230,7 +230,7 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \DescribeOption{numtoc} Typesets a numbered headline, this option also implies |totoc|!
 %
-% \DescribeOption{nonameref} Even if the package |nameref| if detected, it will not be used (\emph{not implemented yet})
+% \DescribeOption{nonameref} Even if the package |nameref| if detected, it will not be used.
 %
 % This document was typeset with |\usepackage[draft,totoc]{listlbls}| also the package |nameref| was loaded.
 %
@@ -259,6 +259,7 @@ Running "make install" installs the files in the local TeX tree.
 \newif\ifllbls@draft\llbls@draftfalse
 \newif\ifllbls@totoc\llbls@totocfalse
 \newif\ifllbls@numtoc\llbls@numtocfalse
+\newif\ifllbls@nameref\llbls@namereftrue
 %    \end{macrocode}
 % \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
@@ -296,6 +297,13 @@ Running "make install" installs the files in the local TeX tree.
 % Check for |numtoc|-option:
 %    \begin{macrocode}
 \DeclareOption{numtoc}{\llbls@numtoctrue}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{nonameref}
+% \changes{v1.03}{2014/08/04}{Added option}
+% Check for |nonameref|-option:
+%    \begin{macrocode}
+\DeclareOption{nonameref}{\llbls@namereffalse}
 %    \end{macrocode}
 % \end{option}
 % Process the options:
@@ -378,9 +386,14 @@ Running "make install" installs the files in the local TeX tree.
 \fi
 %    \end{macrocode}
 % \begin{macro}{\llbls@refs}
+% Whether or not we use |\nameref| in the output.
 %    \begin{macrocode}
 \ifdefined\nameref
-  \newcommand\llbls@refs[1]{\nameref{#1}, \ref{#1}}%
+  \ifllbls@nameref
+    \newcommand\llbls@refs[1]{\nameref{#1}, \ref{#1}}
+  \else
+    \newcommand\llbls@refs[1]{\ref{#1}}
+  \fi
 \else
   \newcommand\llbls@refs[1]{\ref{#1}}%
 \fi
