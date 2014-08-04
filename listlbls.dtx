@@ -410,11 +410,11 @@ Running "make install" installs the files in the local TeX tree.
 %
 %    \begin{macrocode}
 \newtoks\llbls@lablist
-\newread\zz
-\immediate\openin\zz=\jobname.aux
+\newread\llbls@zz
+\immediate\openin\llbls@zz=\jobname.aux
 \loop
-\ifeof\zz\else
-\read\zz to \tmp
+\ifeof\llbls@zz\else
+\read\llbls@zz to \tmp
 \expandafter\llbls@findlabel\tmp\relax\llbls@findlabel
 \repeat
 %    \end{macrocode}
