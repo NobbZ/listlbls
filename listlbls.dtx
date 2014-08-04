@@ -353,6 +353,7 @@ Running "make install" installs the files in the local TeX tree.
   {\`a la page}
 %    \end{macrocode}
 % \subsection{Internal stuff}\label{ssec:impl-internal}
+% \begin{macro}{\llbls@headline}\begin{macro}{\llbls@toccommand}\begin{macro}{\llbls@tocgroup}
 % Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
 %    \begin{macrocode}
 \ifdefined\chapter*
@@ -385,6 +386,7 @@ Running "make install" installs the files in the local TeX tree.
   }
 \fi
 %    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}
 % \begin{macro}{\llbls@refs}
 % Whether or not we use |\nameref| in the output.
 %    \begin{macrocode}
