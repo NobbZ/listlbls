@@ -414,8 +414,8 @@ Running "make install" installs the files in the local TeX tree.
 \immediate\openin\llbls@zz=\jobname.aux
 \loop
 \ifeof\llbls@zz\else
-\read\llbls@zz to \tmp
-\expandafter\llbls@findlabel\tmp\relax\llbls@findlabel
+\read\llbls@zz to \llbls@tmp
+\expandafter\llbls@findlabel\llbls@tmp\relax\llbls@findlabel
 \repeat
 %    \end{macrocode}
 % \subsection{External stuff}\label{ssec:impl-extern}
