@@ -17,11 +17,11 @@ README.txt: $(NAME).pdf
 README.md: $(NAME).pdf
 
 $(NAME).pdf: $(NAME).dtx
-	pdflatex -shell-escape -recorder -interaction=batchmode $(NAME).dtx >/dev/null
+	xelatex -shell-escape -recorder -interaction=batchmode $(NAME).dtx >/dev/null
 	if [ -f $(NAME).glo ]; then makeindex -q -s gglo.ist -o $(NAME).gls $(NAME).glo; fi
 	if [ -f $(NAME).idx ]; then makeindex -q -s gind.ist -o $(NAME).ind $(NAME).idx; fi
-	pdflatex -shell-escape -recorder -interaction=nonstopmode $(NAME).dtx > /dev/null
-	pdflatex -shell-escape -recorder -interaction=nonstopmode $(NAME).dtx > /dev/null
+	xelatex -shell-escape -recorder -interaction=nonstopmode $(NAME).dtx > /dev/null
+	xelatex -shell-escape -recorder -interaction=nonstopmode $(NAME).dtx > /dev/null
 
 clean:
 	rm -f *.fls
