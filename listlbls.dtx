@@ -391,7 +391,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 \long\def\llbls@findlabel#1#2\llbls@findlabel{%
   \ifx\newlabel#1%
-    \lablist\expandafter{\the\lablist\llbls@showlabel#2}
+    \llbls@lablist\expandafter{\the\llbls@lablist\llbls@showlabel#2}
   \fi}
 %    \end{macrocode}
 % \end{macro}
@@ -409,7 +409,7 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 %    \begin{macrocode}
-\newtoks\lablist
+\newtoks\llbls@lablist
 \newread\zz
 \immediate\openin\zz=\jobname.aux
 \loop
@@ -427,7 +427,7 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
   \newcommand\listoflabels{%
     \llbls@headline%
-    \the\lablist}
+    \the\llbls@lablist}
 %    \end{macrocode}
 % \end{macro}
 %    \begin{macrocode}
