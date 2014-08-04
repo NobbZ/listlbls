@@ -10,11 +10,11 @@ UTREE = $(shell kpsewhich --var-value TEXMFHOME)
 all:	$(NAME).pdf README.md README clean
 
 README: README.txt
-	mv README.txt README
-
-README.md: $(NAME).pdf
+	cp README.txt README
 
 README.txt: $(NAME).pdf
+
+README.md: $(NAME).pdf
 
 $(NAME).pdf: $(NAME).dtx
 	pdflatex -shell-escape -recorder -interaction=batchmode $(NAME).dtx >/dev/null
