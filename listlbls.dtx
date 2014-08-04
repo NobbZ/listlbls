@@ -302,44 +302,62 @@ Running "make install" installs the files in the local TeX tree.
 \ProcessOptions*\relax
 %    \end{macrocode}
 % \subsection{Loading auxilliary packages}\label{ssec:impl-aux}
-% Load the package |translations| to provide internationalised caption for the |\listoflabels|.
+% Load the package |translations| to provide internationalised caption for the\\|\listoflabels|.
 %    \begin{macrocode}
 \RequirePackage{translations}
 %    \end{macrocode}
 % \subsection{Set up internationalisation}\label{ssec:impl-i18n}
 % Define fallback translations:
 %    \begin{macrocode}
-\DeclareTranslationFallback{llbls-listoflabels}{List of Labels}
-\DeclareTranslationFallback{llbls-onpage}{on page}
+\DeclareTranslationFallback%
+  {llbls-listoflabels}%
+  {List of Labels}
+\DeclareTranslationFallback%
+  {llbls-onpage}%
+  {on page}
 %    \end{macrocode}
 % \subsubsection{English}\label{sssec:impl-i18n-en}
 %    \begin{macrocode}
-\DeclareTranslation{English}{llbls-listoflabels}{List of Labels}
-\DeclareTranslation{English}{llbls-onpage}{on page}
+\DeclareTranslation{English}%
+  {llbls-listoflabels}%
+  {List of Labels}
+\DeclareTranslation{English}%
+  {llbls-onpage}%
+  {on page}
 %    \end{macrocode}
 % \subsubsection{German}\label{sssec:impl-i18n-de}
 %    \begin{macrocode}
-\DeclareTranslation{German}{llbls-listoflabels}{Sprungmarkenverzeichnis}
-\DeclareTranslation{German}{llbls-onpage}{auf Seite}
+\DeclareTranslation{German}%
+  {llbls-listoflabels}%
+  {Sprungmarkenverzeichnis}
+\DeclareTranslation{German}%
+  {llbls-onpage}%
+  {auf Seite}
 %    \end{macrocode}
 % \subsubsection{French}\label{sssec:impl-i18n-fr}
 %    \begin{macrocode}
-\DeclareTranslation{French}{llbls-listoflabels}{Liste des \'etiquettes}
-\DeclareTranslation{French}{llbls-onpage}{\`a la page}
+\DeclareTranslation{French}%
+  {llbls-listoflabels}%
+  {Liste des \'etiquettes}
+\DeclareTranslation{French}%
+  {llbls-onpage}%
+  {\`a la page}
 %    \end{macrocode}
 % \subsection{Internal stuff}\label{ssec:impl-internal}
 % Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
 %    \begin{macrocode}
 \ifdefined\chapter*
   \ifllbls@numtoc
-    \def\llbls@headline{\chapter{List of Labels}\label{special:listoflabels}}
+    \def\llbls@headline{%
+      \chapter{List of Labels}\label{special:listoflabels}}
   \else
     \def\llbls@toccommand{\chapter*}
     \def\llbls@tocgroup{chapter}
   \fi
 \else
   \ifllbls@numtoc
-    \def\llbls@headline{\section{List of Labels}\label{special:listoflabels}}
+    \def\llbls@headline{%
+      \section{List of Labels}\label{special:listoflabels}}
   \else
     \def\llbls@toccommand{\section*}
     \def\llbls@tocgroup{section}
@@ -350,7 +368,9 @@ Running "make install" installs the files in the local TeX tree.
     \llbls@toccommand{\GetTranslation{llbls-listoflabels}}%
     \label{special:listoflabels}%
     \ifllbls@totoc%
-      \addcontentsline{toc}{\llbls@tocgroup}{\GetTranslation{llbls-listoflabels}}%
+      \addcontentsline{toc}%
+        {\llbls@tocgroup}%
+        {\GetTranslation{llbls-listoflabels}}%
       \relax%
     \fi%
   }
@@ -369,7 +389,9 @@ Running "make install" installs the files in the local TeX tree.
 % No explanation yet.
 %    \begin{macrocode}
 \long\def\llbls@findlabel#1#2\llbls@findlabel{%
-  \ifx\newlabel#1\lablist\expandafter{\the\lablist\llbls@showlabel#2}\fi}
+  \ifx\newlabel#1%
+    \lablist\expandafter{\the\lablist\llbls@showlabel#2}
+  \fi}
 %    \end{macrocode}
 % \end{macro}
 %
