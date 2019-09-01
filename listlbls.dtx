@@ -372,7 +372,7 @@ Running "make install" installs the files in the local TeX tree.
 % \begin{macro}{\llbls@headline}\begin{macro}{\llbls@toccommand}\begin{macro}{\llbls@tocgroup}
 % Determine if we have |\chapter|s or not and create a command that maps to |\chapter| or |\section| as needed.
 %    \begin{macrocode}
-\ifdefined\chapter*
+\ifdefined\chapter
   \ifllbls@numtoc
     \def\llbls@headline{%
       \chapter{List of Labels}\label{special:listoflabels}}
