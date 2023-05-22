@@ -10,7 +10,8 @@ PREFIX ?= $(LOCAL)
 LATEX   = xelatex
 SUDO    = sudo
 
-all:	$(NAME).pdf README.md README clean
+all: $(NAME).pdf README.md README
+	$(MAKE) clean
 
 README: README.txt
 	cp README.txt README
