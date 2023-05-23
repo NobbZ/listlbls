@@ -120,7 +120,7 @@ Running "make install" installs the files in the local TeX tree.
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{listlbls}
 %<*package>
-    [2014/08/04 v1.03 Creates a list of all labels used throughout a document]
+    [2000/00/00 v1.04pre Creates a list of all labels used throughout a document]
 %</package>
 %<*driver>
 \documentclass{ltxdoc}
@@ -244,7 +244,9 @@ Running "make install" installs the files in the local TeX tree.
 % \DescribeMacro{\label} \marg{name}
 % Use |\label| as you are used to it!
 %
-% \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode. It will itself register the label ``|special:listoflabels|''.
+% \DescribeMacro{\listoflabels} \oarg{label}
+% This macro will typeset the list of labels when this module is in draft mode.
+% It will itself register the label from the optional arg, defaulting to ``|special:listoflabels|''.
 %
 %\StopEventually{^^A
 %  \PrintChanges
@@ -398,7 +400,10 @@ Running "make install" installs the files in the local TeX tree.
 \ifdefined\chapter
   \ifllbls@numtoc
     \def\llbls@headline{%
-      \chapter{List of Labels}\label{special:listoflabels}}
+%    \end{macrocode}
+% We are using |\llbls@labelname| here and in the other possible definitions of |\llbls@headline| to be able to set the label name in the |\listoflabels| macro.
+%    \begin{macrocode}
+      \chapter{List of Labels}\label{\llbls@labelname}}
   \else
     \def\llbls@toccommand{\chapter*}
     \def\llbls@tocgroup{chapter}
@@ -406,7 +411,7 @@ Running "make install" installs the files in the local TeX tree.
 \else
   \ifllbls@numtoc
     \def\llbls@headline{%
-      \section{List of Labels}\label{special:listoflabels}}
+      \section{List of Labels}\label{\llbls@labelname}}
   \else
     \def\llbls@toccommand{\section*}
     \def\llbls@tocgroup{section}
@@ -415,7 +420,7 @@ Running "make install" installs the files in the local TeX tree.
 \ifdefined\llbls@headline\else
   \def\llbls@headline{%
     \llbls@toccommand{\GetTranslation{llbls-listoflabels}}%
-    \label{special:listoflabels}%
+    \label{\llbls@labelname}%
     \ifllbls@totoc%
       \addcontentsline{toc}%
         {\llbls@tocgroup}%
@@ -476,14 +481,16 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 \ifllbls@draft
 %    \end{macrocode}
-% \begin{macro}{\listoflabels}
+% \begin{macro}{\listoflabels}\begin{macro}{\llbls@labelname}
+% \changes{v1.04}{20xx/xx/xx}{add optional argument to change the name of the label used.}
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}
-  \newcommand\listoflabels{%
+  \newcommand{\listoflabels}[1][special:listoflabels]{%
+    \def\llbls@labelname{#1}%
     \llbls@headline%
     \the\llbls@lablist}
 %    \end{macrocode}
-% \end{macro}
+% \end{macro}\end{macro}
 %    \begin{macrocode}
 \else
   \let\listoflabels=\relax
