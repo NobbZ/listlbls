@@ -125,12 +125,11 @@ Running "make install" installs the files in the local TeX tree.
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{microtype}
-\usepackage{libertine}
+\usepackage{lmodern}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
-\usepackage{colordoc}
 \usepackage{multicol}
-\usepackage{dox}
-\doxitem{Option}{option}{option}
+\usepackage{doc}
+\usepackage{dtxdescribe}
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
 \usepackage{nameref}
@@ -163,6 +162,8 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.02}{2014/07/26}{Local option wins agains global option}
 %\changes{v1.02}{2014/07/27}{Added languag-support for English, German and French.}
 %\changes{v1.03}{2014/08/04}{Proceeding with namespacing internal macros}
+%\changes{v1.04}{20xx/xx/xx}{Fix build problems due to bitrotten dependencies}
+%\changes{v1.04}{20xx/xx/xx}{Switch back to lmodern for documentation}
 % \begin{abstract}
 % This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
 %
