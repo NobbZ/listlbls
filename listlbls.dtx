@@ -269,6 +269,17 @@ Running "make install" installs the files in the local TeX tree.
 %   \item and wait for approval.
 % \end{enumerate}
 % After approval your code will be merged to the |development|-branch and I will generally not accept pull-requests that edit |develop| directly.
+%
+% \section{Known issues and limitations}\label{sec:issues}
+% \changes{v1.04}{20xx/xx/xx}{Add issues and limitations section}
+%
+% \subsection{include}\label{ssec:issues-include}
+% 
+% Documents containing |\include| will not work.
+% Currently there is no logic to recurse through the different |.aux|-files.
+%
+% Please see \href{https://github.com/NobbZ/listlbls/issues/4}{issue \#4} for more information.
+%
 % \section{Implementation}\label{sec:implementation}
 %
 %    \begin{macrocode}
