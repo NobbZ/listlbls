@@ -240,7 +240,8 @@ Running "make install" installs the files in the local TeX tree.
 %
 % Then anywhere in your document, you can use the |\listoflabels|-macro to typeset a list of labels. An example can be seen on page \pageref{special:listoflabels}.
 %
-% \DescribeMacro{\label} Use |\label| as you are used to it!
+% \DescribeMacro{\label} \marg{name}
+% Use |\label| as you are used to it!
 %
 % \DescribeMacro{\listoflabels} This macro will typeset the list of labels when this module is in draft mode. It will itself register the label ``|special:listoflabels|''.
 %
@@ -367,6 +368,16 @@ Running "make install" installs the files in the local TeX tree.
 \DeclareTranslation{French}%
   {llbls-onpage}%
   {\`a la page}
+%    \end{macrocode}
+% \subsubsection{Portuguese}\label{sssec:impl-i18n-pt}
+% \changes{v1.04}{20xx/xx/xx}{Add Portuguese translation}
+%    \begin{macrocode}
+\DeclareTranslation{Portuguese}%
+  {llbls-listoflabels}%
+  {Lista de R\'{o}tulos}
+\DeclareTranslation{Portuguese}%
+  {llbls-onpage}%
+  {na p\'{a}gina}
 %    \end{macrocode}
 % \subsection{Internal stuff}\label{ssec:impl-internal}
 % \begin{macro}{\llbls@headline}\begin{macro}{\llbls@toccommand}\begin{macro}{\llbls@tocgroup}
