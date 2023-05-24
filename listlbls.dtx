@@ -129,7 +129,7 @@ Running "make install" installs the files in the local TeX tree.
 \usepackage{fontawesome5}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage{multicol}
-\usepackage{doc}
+\usepackage[reportchangedates]{doc}
 \usepackage{dtxdescribe}
 \usepackage[numbered]{hypdoc}
 \usepackage{xspace}
@@ -488,8 +488,9 @@ Running "make install" installs the files in the local TeX tree.
 %    \begin{macrocode}
 \ifllbls@draft
 %    \end{macrocode}
-% \begin{macro}{\listoflabels}\begin{macro}{\llbls@labelname}
+% \begin{macro}{\listoflabels}
 % \changes{v1.04}{20xx/xx/xx}{add optional argument to change the name of the label used.}
+% \begin{macro}{\llbls@labelname}
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}
   \newcommand{\listoflabels}[1][special:listoflabels]{%
