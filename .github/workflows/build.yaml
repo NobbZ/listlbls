@@ -1,0 +1,20 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        buildable: [zip, xelatex, lualatex, pdflatex]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DeterminateSystems/nix-installer-action@v2
+        with:
+          github-token: ${{ github.token }}
+      - run: nix build .#${{ matrix.buildable }}
+      - uses: actions/upload-artifact@v3
+        if: ${{ matrix.buildable == 'zip' }}
+        with:
+          name: listlbls.zip
+          path: result/listlbls-*.zip
