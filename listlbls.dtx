@@ -126,6 +126,7 @@ Running "make install" installs the files in the local TeX tree.
 \documentclass{ltxdoc}
 \usepackage{microtype}
 \usepackage{lmodern}
+\usepackage{fontawesome5}
 \usepackage[a4paper,margin=25mm,left=50mm,nohead]{geometry}
 \usepackage{multicol}
 \usepackage{doc}
@@ -139,6 +140,10 @@ Running "make install" installs the files in the local TeX tree.
 \CodelineIndex
 \RecordChanges
 \newcommand\TSE{\href{http://tex.stackexchange.com/}{\TeX-Stackexchange}\xspace}
+
+\newcommand\link[2]{\href{#1}{#2}\footnote{\nolinkurl{#1}}}
+\newcommand\ghissue[3]{\link{https://github.com/#1/#2/issues/#3}{\faIcon{github}~#1/#2\##3}}
+\newcommand\thisissue[1]{\ghissue{nobbz}{listlbls}{#1}}
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
@@ -184,8 +189,10 @@ Running "make install" installs the files in the local TeX tree.
 % \subsection{From Github}\label{ssec:inst-gh}
 %
 % \begin{enumerate}
-%   \item Check out the sourcecode from \href{https://github.com/}{GitHub}:\\
-%     |git clone git@github.com:NobbZ/listlbls.git|
+%   \item Check out the sourcecode from \link{https://github.com/}{GitHub}:\\
+%     |git clone https://github.com/NobbZ/nixos-config.git| or\\
+%     |git clone git@github.com:NobbZ/listlbls.git| or\\
+%     |gh repo clone NobbZ/listlbls|
 %   \item Switch to the source-folder:\\|cd listlbls|
 %   \item Checkout the branch/tag you desire: |master| for latest release, |develop| for latest builds (might be broken) or the version number desired.\\
 %     |git checkout <branch/tag>|
@@ -258,11 +265,11 @@ Running "make install" installs the files in the local TeX tree.
 %
 % \section{Contribution and bugreports}\label{sec:contribute}
 %
-% If you have feature-requests or bug-reports, please feel free to report them on the \href{https://github.com/NobbZ/listlbls}{project page at GitHub}.
+% If you have feature-requests or bug-reports, please feel free to report them on the \link{https://github.com/NobbZ/listlbls}{project page at GitHub}.
 %
 % If you want to contribute then follow these steps:
 % \begin{enumerate}
-%   \item Visit the \href{https://github.com/NobbZ/listlbls}{project page at GitHub},
+%   \item Visit the \link{https://github.com/NobbZ/listlbls}{project page at GitHub},
 %   \item forkt it,
 %   \item clone it to your local machine,
 %   \item create a branch ``|feature/|\meta{feature name}'',
@@ -276,12 +283,12 @@ Running "make install" installs the files in the local TeX tree.
 % \section{Known issues and limitations}\label{sec:issues}
 % \changes{v1.04}{20xx/xx/xx}{Add issues and limitations section}
 %
-% \subsection{include}\label{ssec:issues-include}
+% \subsection{\texttt{\textbackslash{}include}}\label{ssec:issues-include}
 % 
 % Documents containing |\include| will not work.
 % Currently there is no logic to recurse through the different |.aux|-files.
 %
-% Please see \href{https://github.com/NobbZ/listlbls/issues/4}{issue \#4} for more information.
+% Please see \thisissue{4} for more information.
 %
 % \section{Implementation}\label{sec:implementation}
 %
