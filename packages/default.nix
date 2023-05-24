@@ -15,6 +15,7 @@
         dtxdescribe
         etoolbox
         fancyvrb
+        fontawesome5
         geometry
         graphics
         hypdoc
