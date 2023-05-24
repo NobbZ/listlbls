@@ -13,8 +13,10 @@ jobs:
         with:
           github-token: ${{ github.token }}
       - run: nix build .#${{ matrix.buildable }}
+      - run: cp result/*.zip .
+        if: ${{ matrix.buildable == 'zip' }}
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.buildable == 'zip' }}
         with:
           name: listlbls.zip
-          path: result/listlbls-*.zip
+          path: listlbls-*.zip
