@@ -15,8 +15,20 @@ jobs:
       - run: nix build .#${{ matrix.buildable }} -L
       - run: cp result/*.zip .
         if: ${{ matrix.buildable == 'zip' }}
+      - run: cp result/{share/doc/latex/listlbls/listlbls.pdf,tex/latex/listlbls/listlbls.sty} .
+        if: ${{ matrix.buildable == 'xelatex' }}
       - uses: actions/upload-artifact@v3
         if: ${{ matrix.buildable == 'zip' }}
         with:
           name: listlbls.zip
           path: listlbls-*.zip
+      - uses: actions/upload-artifact@v3
+        if: ${{ matrix.buildable == 'xelatex' }}
+        with:
+          name: listlbls.pdf
+          path: listlbls.pdf
+      - uses: actions/upload-artifact@v3
+        if: ${{ matrix.buildable == 'xelatex' }}
+        with:
+          name: listlbls.sty
+          path: listlbls.sty
