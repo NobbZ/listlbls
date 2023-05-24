@@ -21,12 +21,12 @@ README.txt: $(NAME).pdf
 README.md: $(NAME).pdf
 
 $(NAME).pdf: $(NAME).dtx
-	$(LATEX) -shell-escape -recorder -interaction=batchmode $(NAME).dtx
+	$(LATEX) -shell-escape -recorder $(NAME).dtx
 	if [ -f $(NAME).glo ]; then makeindex -q -s gglo.ist -o $(NAME).gls $(NAME).glo; fi
 	if [ -f $(NAME).idx ]; then makeindex -q -s gind.ist -o $(NAME).ind $(NAME).idx; fi
-	$(LATEX) -shell-escape -recorder -interaction=batchmode $(NAME).dtx
-	$(LATEX) -shell-escape -recorder -interaction=batchmode $(NAME).dtx
-	$(LATEX) -shell-escape -recorder -interaction=batchmode $(NAME).dtx
+	$(LATEX) -shell-escape -recorder -interaction=scrollmode $(NAME).dtx
+	$(LATEX) -shell-escape -recorder -interaction=scrollmode $(NAME).dtx
+	$(LATEX) -shell-escape -recorder -interaction=scrollmode $(NAME).dtx
 
 clean:
 	rm -f *.fls
