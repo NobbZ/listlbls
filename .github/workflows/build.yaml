@@ -12,7 +12,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@v2
         with:
           github-token: ${{ github.token }}
-      - run: nix build .#${{ matrix.buildable }}
+      - run: nix build .#${{ matrix.buildable }} -L
       - run: cp result/*.zip .
         if: ${{ matrix.buildable == 'zip' }}
       - uses: actions/upload-artifact@v3
