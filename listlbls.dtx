@@ -120,7 +120,7 @@ Running "make install" installs the files in the local TeX tree.
 %<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
 %<package>\ProvidesPackage{listlbls}
 %<*package>
-    [2000/00/00 v1.04pre Creates a list of all labels used throughout a document]
+    [2000/00/00 v1.5.0-pre Creates a list of all labels used throughout a document]
 %</package>
 %<*driver>
 \documentclass{ltxdoc}
@@ -164,11 +164,11 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.00}{2014/07/25}{First public release}
 %\changes{v1.01}{2014/07/25}{Changed maintainer email}
 %\changes{v1.01}{2014/07/25}{Changed some internal stuff to make it releaseable on CTAN}
-%\changes{v1.02}{2014/07/26}{Local option wins agains global option}
+%\changes{v1.02}{2014/07/27}{Local option wins agains global option}
 %\changes{v1.02}{2014/07/27}{Added languag-support for English, German and French.}
 %\changes{v1.03}{2014/08/04}{Proceeding with namespacing internal macros}
-%\changes{v1.04}{20xx/xx/xx}{Fix build problems due to bitrotten dependencies}
-%\changes{v1.04}{20xx/xx/xx}{Switch back to lmodern for documentation}
+%\changes{v1.04}{2023/05/24}{Fix build problems due to bitrotten dependencies}
+%\changes{v1.04}{2023/05/24}{Switch back to lmodern for documentation}
 % \begin{abstract}
 % This is a package meant to help a \LaTeX-writer to keep track all the defined labels by typesetting a complete list of labels whereever the author requests it. Keep in mind, that you might need to have additional \LaTeX\ runs to get the references right.
 %
@@ -281,7 +281,7 @@ Running "make install" installs the files in the local TeX tree.
 % After approval your code will be merged to the |development|-branch and I will generally not accept pull-requests that edit |develop| directly.
 %
 % \section{Known issues and limitations}\label{sec:issues}
-% \changes{v1.04}{20xx/xx/xx}{Add issues and limitations section}
+% \changes{v1.04}{2023/05/24}{Add issues and limitations section}
 %
 % \subsection{\texttt{\textbackslash{}include}}\label{ssec:issues-include}
 % 
@@ -302,7 +302,7 @@ Running "make install" installs the files in the local TeX tree.
 % \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
 % \changes{v1.01}{2014/07/25}{Added option}
-% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
+% \changes{v1.02}{2014/07/27}{Introduced @ifdraft}
 % Check for |draft|-option:
 %    \begin{macrocode}
 \DeclareOption{draft}{\llbls@drafttrue}
@@ -310,21 +310,21 @@ Running "make install" installs the files in the local TeX tree.
 % \end{option}
 % \begin{option}{final}
 % \changes{v1.01}{2014/07/25}{Added option}
-% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
+% \changes{v1.02}{2014/07/27}{Introduced @ifdraft}
 % Check for |final|-option:
 %    \begin{macrocode}
 \DeclareOption{final}{\llbls@draftfalse}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{totoc}
-% \changes{v1.02}{2014/07/26}{Added option}
+% \changes{v1.02}{2014/07/27}{Added option}
 % Check for |totoc|-option:
 %    \begin{macrocode}
 \DeclareOption{totoc}{\llbls@totoctrue}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{notoc}
-% \changes{v1.02}{2014/07/26}{Added option}
+% \changes{v1.02}{2014/07/27}{Added option}
 % Check for |notoc|-option:
 %    \begin{macrocode}
 \DeclareOption{notoc}{\llbls@totocfalse}
@@ -391,7 +391,7 @@ Running "make install" installs the files in the local TeX tree.
   {\`a la page}
 %    \end{macrocode}
 % \subsubsection{Portuguese}\label{sssec:impl-i18n-pt}
-% \changes{v1.04}{20xx/xx/xx}{Add Portuguese translation}
+% \changes{v1.04}{2023/05/24}{Add Portuguese translation}
 %    \begin{macrocode}
 \DeclareTranslation{Portuguese}%
   {llbls-listoflabels}%
@@ -463,7 +463,7 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\llbls@showlabel}
-% \changes{v1.03}{2014/07/27}{Add support for nameref-package}
+% \changes{v1.02}{2014/08/04}{Add support for nameref-package}
 % Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\llbls@showlabel#1#2{%
@@ -489,7 +489,7 @@ Running "make install" installs the files in the local TeX tree.
 \ifllbls@draft
 %    \end{macrocode}
 % \begin{macro}{\listoflabels}
-% \changes{v1.04}{20xx/xx/xx}{add optional argument to change the name of the label used.}
+% \changes{v1.04}{2023/05/24}{add optional argument to change the name of the label used.}
 % \begin{macro}{\llbls@labelname}
 % Print a list of all available lables that are defined throughout the document.
 %    \begin{macrocode}

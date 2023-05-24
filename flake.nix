@@ -17,7 +17,7 @@
 
         devShells.default = pkgs.mkShellNoCC {
           packages = builtins.attrValues {
-            inherit (pkgs) gnumake;
+            inherit (pkgs) gnumake texlab nil;
             inherit (self'.packages) texCombined;
           };
         };
