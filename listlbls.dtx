@@ -164,7 +164,7 @@ Running "make install" installs the files in the local TeX tree.
 %\changes{v1.00}{2014/07/25}{First public release}
 %\changes{v1.01}{2014/07/25}{Changed maintainer email}
 %\changes{v1.01}{2014/07/25}{Changed some internal stuff to make it releaseable on CTAN}
-%\changes{v1.02}{2014/07/26}{Local option wins agains global option}
+%\changes{v1.02}{2014/07/27}{Local option wins agains global option}
 %\changes{v1.02}{2014/07/27}{Added languag-support for English, German and French.}
 %\changes{v1.03}{2014/08/04}{Proceeding with namespacing internal macros}
 %\changes{v1.04}{20xx/xx/xx}{Fix build problems due to bitrotten dependencies}
@@ -302,7 +302,7 @@ Running "make install" installs the files in the local TeX tree.
 % \subsection{Options}\label{ssec:impl-options}
 % \begin{option}{draft}
 % \changes{v1.01}{2014/07/25}{Added option}
-% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
+% \changes{v1.02}{2014/07/27}{Introduced @ifdraft}
 % Check for |draft|-option:
 %    \begin{macrocode}
 \DeclareOption{draft}{\llbls@drafttrue}
@@ -310,21 +310,21 @@ Running "make install" installs the files in the local TeX tree.
 % \end{option}
 % \begin{option}{final}
 % \changes{v1.01}{2014/07/25}{Added option}
-% \changes{v1.02}{2014/07/26}{Introduced @ifdraft}
+% \changes{v1.02}{2014/07/27}{Introduced @ifdraft}
 % Check for |final|-option:
 %    \begin{macrocode}
 \DeclareOption{final}{\llbls@draftfalse}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{totoc}
-% \changes{v1.02}{2014/07/26}{Added option}
+% \changes{v1.02}{2014/07/27}{Added option}
 % Check for |totoc|-option:
 %    \begin{macrocode}
 \DeclareOption{totoc}{\llbls@totoctrue}
 %    \end{macrocode}
 % \end{option}
 % \begin{option}{notoc}
-% \changes{v1.02}{2014/07/26}{Added option}
+% \changes{v1.02}{2014/07/27}{Added option}
 % Check for |notoc|-option:
 %    \begin{macrocode}
 \DeclareOption{notoc}{\llbls@totocfalse}
@@ -463,7 +463,7 @@ Running "make install" installs the files in the local TeX tree.
 % \end{macro}
 %
 % \begin{macro}{\llbls@showlabel}
-% \changes{v1.03}{2014/07/27}{Add support for nameref-package}
+% \changes{v1.02}{2014/08/04}{Add support for nameref-package}
 % Displays a single entry in the |\listoflabels|
 %    \begin{macrocode}
 \def\llbls@showlabel#1#2{%
