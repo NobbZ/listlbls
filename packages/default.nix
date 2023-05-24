@@ -37,7 +37,7 @@
     inherit (pkgs) stdenvNoCC;
     builder = engine:
       stdenvNoCC.mkDerivation {
-        pname = "listllbls";
+        pname = "listlbls";
         version = "${version}-${engine}";
 
         src = "${self}";
