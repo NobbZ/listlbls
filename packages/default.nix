@@ -4,7 +4,7 @@
     self',
     ...
   }: let
-    version = "1.04pre";
+    version = "1.04";
     texCombined = pkgs.texlive.combine {
       inherit
         (pkgs.texlive)
